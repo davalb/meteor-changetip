@@ -2,7 +2,7 @@ Package.describe({
   name: 'davalb:changetip',
   summary: 'Changetip for Meteor',
   version: '0.0.1',
-  git: 'https://github.com/quietcreep/meteor-soundcloud'
+  git: 'https://github.com/davalb/meteor-changetip'
 });
 
 
@@ -20,18 +20,18 @@ Package.onUse( function( api ){
 
   api.addFiles( 'settings.js', both );
 
-  api.export( "SoundCloud" );
+  api.export( "Changetip" );
 
-  api.addFiles( 'soundcloud_configure.html', 'client' );
-  api.addFiles( 'soundcloud_configure.js', 'client' );
+  api.addFiles( 'changetip_configure.html', 'client' );
+  api.addFiles( 'changetip_configure.js', 'client' );
 
-  api.addFiles( 'soundcloud_client.js', 'client' );
-  api.addFiles( 'soundcloud_server.js', 'server' );
+  api.addFiles( 'changetip_client.js', 'client' );
+  api.addFiles( 'changetip_server.js', 'server' );
 
 });
 
 Package.onTest( function( api ){
   api.use('tinytest');
-  api.use('quietcreep:soundcloud');
-  api.addFiles('quietcreep:soundcloud-tests.js');
+  api.use('davalb:changetip');
+  api.addFiles('davalb:changetip-tests.js');
 });

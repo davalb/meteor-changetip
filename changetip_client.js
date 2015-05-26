@@ -4,35 +4,35 @@
 // @param credentialRequestCompleteCallback {Function} Callback function to call on
 //   completion. Takes one argument, credentialToken on success, or Error on
 //   error.
-SoundCloud.requestCredential = function (options, credentialRequestCompleteCallback) {
+Changetip.requestCredential = function (options, credentialRequestCompleteCallback) {
   // support both (options, callback) and (callback).
   if (! credentialRequestCompleteCallback && typeof options === 'function' ) {
     credentialRequestCompleteCallback = options;
     options = {};
   }
 
-  var config = ServiceConfiguration.configurations.findOne({ service: 'soundCloud' });
+  var config = ServiceConfiguration.configurations.findOne({ service: 'changetip' });
   if (! config ) {
     credentialRequestCompleteCallback && credentialRequestCompleteCallback( new ServiceConfiguration.ConfigError() );
     return;
   }
 
   var credentialToken = Random.secret();
-  var loginStyle = OAuth._loginStyle( 'soundCloud', config, options );
+  var loginStyle = OAuth._loginStyle( 'changetip', config, options );
   config.loginStyle = loginStyle;   // hack to make sure '?close' is not added to redirectUri; SC doesn't like it
 
   var loginUrl =
-    'https://soundCloud.com/connect' +
+    'https://www.changetip.com/o/authorize/' +
     '?client_id=' + config.clientId +
-    '&scope=non-expiring' +
-    '&redirect_uri=' + OAuth._redirectUri( 'soundCloud', config, null, { replaceLocalhost: true }) +
+    '&scope=read_user_basic' +
+    '&redirect_uri=' + OAuth._redirectUri( 'changetip', config, null, { replaceLocalhost: true }) +
     '&state=' + OAuth._stateParam( loginStyle, credentialToken ) +
-    '&response_type=code_and_token' +
+    '&response_type=code' +
     '&display=popup';
 
 
   OAuth.launchLogin({
-    loginService: "soundCloud",
+    loginService: "changetip",
     loginStyle: loginStyle,
     loginUrl: loginUrl,
     credentialRequestCompleteCallback: credentialRequestCompleteCallback,
